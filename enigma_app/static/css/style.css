@@ -1,15 +1,16 @@
+@import 'https://fonts.googleapis.com/css?family=Special+Elite';
+
 body {
   background-image: url('../img/enigmaoperator.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: middle;
-  background-color: rgba(255, 0, 0, 0.5);
 }
 
 #greeting {
   text-align: center;
   width: 100%;
-  margin: auto;
+  margin: 15% auto;
 }
 
 #greeting img {
