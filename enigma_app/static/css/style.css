@@ -1,16 +1,43 @@
 @import 'https://fonts.googleapis.com/css?family=Special+Elite';
 
+html {
+  height: 100%;
+}
+
 body {
+  background: black;
+  background-image: url('../img/enigmaoperator.jpg');
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   background-size: cover;
 }
 
 #greeting {
   text-align: center;
-  width: 100%;
-  margin: 10% auto;
+  width: 40%;
+  margin: auto;
+  padding: 10% 0;
+  vertical-align: middle;
+  font-family: 'Special Elite';
+  font-weight: lighter;
+  line-height: 1.5;
+  color: mintcream;
+  text-shadow: 0px 0px 50px #211;
 }
 
 #greeting img {
-  max-width: 40%;
+  max-width: 100%;
 }
