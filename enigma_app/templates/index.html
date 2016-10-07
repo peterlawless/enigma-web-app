@@ -1,1 +1,15 @@
-<h1>Welkommen to Enigma!</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enigma</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div id="greeting">
+      <img src="{% static 'img/Enigma-logo.svg' %}">
+    </div>
+  </body>
+</html>
