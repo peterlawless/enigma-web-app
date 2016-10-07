@@ -1,0 +1,9 @@
+venv
+*.pyc
+staticfiles
+.env
+.envrc
+.direnv
+__pycache__
+enigma/__pycache__
+enigma_app/__pycache__
