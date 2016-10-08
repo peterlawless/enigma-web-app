@@ -5,13 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Enigma</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/enigma.css' %}">
   </head>
   <body>
     <div class="rotors">
-      <input pattern="[A-Z]{1}" id="slow-rotor">
-      <input pattern="[A-Z]{1}" id="middle-rotor">
-      <input pattern="[A-Z]{1}" id="fast-rotor">
+      <div id="slow-rotor">
+        <div class="window"></div>
+        <div class="buttons">
+          <i class="fa fa-angle-up" aria-hidden="true" class="up"></i>
+          <i class="fa fa-angle-down" aria-hidden="true" class="down"></i>
+        </div>
+      </div>
+      <div id="middle-rotor">
+        <div class="window"></div>
+        <div class="buttons">
+          <i class="fa fa-angle-up" aria-hidden="true" class="up"></i>
+          <i class="fa fa-angle-down" aria-hidden="true" class="down"></i>
+        </div>
+      </div>
+      <div id="fast-rotor">
+        <div class="window"></div>
+        <div class="buttons">
+          <i class="fa fa-angle-up" aria-hidden="true" class="up"></i>
+          <i class="fa fa-angle-down" aria-hidden="true" class="down"></i>
+        </div>
+      </div>
     </div>
     <div id="lampboard">
       <div id="first_row">
@@ -47,5 +66,7 @@
         <div id="L">L</div>
       </div>
     </div>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
