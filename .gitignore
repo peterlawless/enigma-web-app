@@ -7,3 +7,5 @@ staticfiles
 __pycache__
 enigma/__pycache__
 enigma_app/__pycache__
+.DS_Store
+enigma_app/.DS_Store
