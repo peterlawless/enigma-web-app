@@ -50,6 +50,11 @@ body {
   margin: 15% 0;
 }
 
+.rotors div select {
+  display: block;
+  width: 60%;
+}
+
 #lampboard {
   padding: 5% 10%;
 }

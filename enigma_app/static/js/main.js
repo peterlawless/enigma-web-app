@@ -1,3 +1,5 @@
+var rotors = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -7,18 +9,22 @@ var slow_index = 0;
 var middle_index = 0;
 var fast_index = 0;
 
-$('.window').html('<span>' + alphabet[0] + '</span>');
+$('.fast-letter').html(alphabet[fast_index]);
+$('.middle-letter').html(alphabet[middle_index]);
+$('.slow-letter').html(alphabet[slow_index]);
+
+
 
 $('.up').click(function () {
   if ($(this).parent().parent().hasClass('slow-rotor')) {
     slow_index = (slow_index + 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[slow_index] + '</span>');
+    $('.slow-letter').html(alphabet[slow_index]);
   } else if ($(this).parent().parent().hasClass('middle-rotor')) {
     middle_index = (middle_index + 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[middle_index] + '</span>');
+    $('.middle-letter').html(alphabet[middle_index]);
   } else if ($(this).parent().parent().hasClass('fast-rotor')) {
     fast_index = (fast_index + 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[fast_index] + '</span>');
+    $('.fast-letter').html(alphabet[fast_index]);
   }
 });
 
@@ -26,14 +32,14 @@ $('.down').click(function () {
   if ($(this).parent().parent().hasClass('slow-rotor')) {
     if (slow_index === 0) {slow_index = slow_index + 26;}
     slow_index = (slow_index - 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[slow_index] + '</span>');
+    $('.slow-letter').html(alphabet[slow_index]);
   } else if ($(this).parent().parent().hasClass('middle-rotor')) {
     if (middle_index === 0) {middle_index = middle_index + 26;}
     middle_index = (middle_index - 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[middle_index] + '</span>');
+    $('.middle-letter').html(alphabet[middle_index]);
   } else if ($(this).parent().parent().hasClass('fast-rotor')) {
     if (fast_index === 0) {fast_index = fast_index + 26;}
     fast_index = (fast_index - 1) % 26;
-    $(this).parent().prev().html('<span>' + alphabet[fast_index] + '</span>');
+    $('.fast-letter').html(alphabet[fast_index]);
   }
 });
