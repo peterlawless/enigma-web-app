@@ -1,5 +1,3 @@
-var rotors = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
-
 var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -42,4 +40,25 @@ $('.down').click(function () {
     fast_index = (fast_index - 1) % 26;
     $('.fast-letter').html(alphabet[fast_index]);
   }
+});
+
+$('button').click(function(event) {
+  event.preventDefault();
+  var rotors = [];
+  var settings = [];
+  $('select').each(function(i, e) {
+    rotors.push(e.value);
+  });
+  settings.push($('.slow-letter').html());
+  settings.push($('.middle-letter').html());
+  settings.push($('.fast-letter').html());
+  console.log(rotors);
+  console.log(settings);
+  if (rotors.length === 3 && settings.length === 3) {
+    $.ajax({type:"GET",
+            url: '/encrypt/',
+            data: {'rotor': rotors, 'setting': settings, 'letter': 'A'},
+            traditional: true}
+          ).done(function(response) {console.log(response);}); // end .done()
+  };
 });
