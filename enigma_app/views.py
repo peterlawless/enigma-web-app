@@ -36,3 +36,7 @@ def encrypt(request):
     return JsonResponse({'cipher_letter': cipher_letter,
                          'middle_rotor_turnover': middle_rotor_turnover,
                          'fast_rotor_turnover': fast_rotor_turnover})
+
+
+def turnover(request):
+    pass
