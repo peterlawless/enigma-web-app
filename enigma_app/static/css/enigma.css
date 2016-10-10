@@ -22,34 +22,54 @@ body {
 
 .rotors div {
   display: inline-block;
+  background: silver;
+  background-image: linear-gradient(-45deg, grey, darkgrey);
+  border-radius: 20%;
+  border: 2px solid #444;
+  border-left-color: #333;
+  border-top-color: #333;
+  padding: 10px;
 }
 
 .rotors div i {
   display: block;
+  color: #333;
 }
 
 .rotors div i:hover {
   color: dimgrey;
 }
 
-.window {
+.rotors .window {
   vertical-align: top;
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
   border-radius: 5px;
   background: beige;
+  background-image: linear-gradient(beige, white);
   text-align: center;
   display: inline-block;
-  border: 3px solid #444;
+  border: 3px solid #999;
   border-style: inset;
-  font-size: 30px;
+  font-size: 25px;
   color: black;
-  margin: 5px 0;
+  margin: 18px 0;
 }
+
+.rotors .buttons {
+  border-style: none;
+  background: transparent;
+}
+
 
 .window span {
   display: inline-block;
-  margin: 15% 0;
+}
+
+.rotors div select {
+  display: block;
 }
 
 #lampboard {
