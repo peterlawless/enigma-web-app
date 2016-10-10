@@ -71,3 +71,8 @@ body {
   padding: 15px;
   margin: 10px;
 }
+
+.glow {
+  color: beige;
+  text-shadow: 0 0 10px cornsilk;
+}

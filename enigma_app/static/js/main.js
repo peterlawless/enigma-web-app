@@ -59,6 +59,9 @@ $('button').click(function(event) {
             url: '/encrypt/',
             data: {'rotor': rotors, 'setting': settings, 'letter': 'A'},
             traditional: true}
-          ).done(function(response) {console.log(response);}); // end .done()
+          ).done(function(response) {
+            console.log(response);
+            $('#' + response.cipher_letter).addClass('glow');
+          }); // end .done()
   };
 });
