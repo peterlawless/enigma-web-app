@@ -42,26 +42,28 @@ $('.down').click(function () {
   }
 });
 
-$('button').click(function(event) {
-  event.preventDefault();
-  var rotors = [];
-  var settings = [];
-  $('select').each(function(i, e) {
-    rotors.push(e.value);
-  });
-  settings.push($('.slow-letter').html());
-  settings.push($('.middle-letter').html());
-  settings.push($('.fast-letter').html());
-  console.log(rotors);
-  console.log(settings);
-  if (rotors.length === 3 && settings.length === 3) {
-    $.ajax({type:"GET",
-            url: '/encrypt/',
-            data: {'rotor': rotors, 'setting': settings, 'letter': 'A'},
-            traditional: true}
-          ).done(function(response) {
-            console.log(response);
-            $('#' + response.cipher_letter).addClass('glow');
-          }); // end .done()
-  };
+
+$(document).keydown(function(event) {
+  var letter = String.fromCharCode(event.keyCode);
+  if (alphabet.includes(letter)) {
+    var rotors = [];
+    var settings = [];
+    $('select').each(function(i, e) {
+      rotors.push(e.value);
+    });
+    settings.push($('.slow-letter').html());
+    settings.push($('.middle-letter').html());
+    settings.push($('.fast-letter').html());
+    if (rotors.length === 3 && settings.length === 3) {
+      $.ajax({type:"GET",
+              url: '/encrypt/',
+              data: {'rotor': rotors, 'setting': settings, 'letter': letter},
+              traditional: true}
+            ).done(function(response) {
+              $('#' + response.cipher_letter).addClass('glow');
+            }); // end .done()
+    };
+  }
+}).keyup(function() {
+  $('.glow').removeClass('glow');
 });
