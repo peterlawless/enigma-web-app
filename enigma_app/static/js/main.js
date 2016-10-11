@@ -42,10 +42,18 @@ $('.down').click(function () {
   }
 });
 
+var timesCalled = 0;
 
 $(document).keydown(function(event) {
   var letter = String.fromCharCode(event.keyCode);
   if (alphabet.includes(letter)) {
+    if (timesCalled < 2) {
+      timesCalled++;
+    };
+    if (timesCalled === 1) {
+      fast_index = (fast_index + 1) % 26;
+    };
+    $('.fast-letter').html(alphabet[fast_index]);
     var rotors = [];
     var settings = [];
     $('select').each(function(i, e) {
@@ -66,4 +74,5 @@ $(document).keydown(function(event) {
   }
 }).keyup(function() {
   $('.glow').removeClass('glow');
+  timesCalled = 0;
 });

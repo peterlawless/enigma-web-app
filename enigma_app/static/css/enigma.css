@@ -23,7 +23,7 @@ body {
 .rotors div {
   display: inline-block;
   background: silver;
-  background-image: linear-gradient(-45deg, grey, darkgrey);
+  background-image: linear-gradient(-45deg, #444, grey);
   border-radius: 20%;
   border: 2px solid #444;
   border-left-color: #333;
@@ -37,7 +37,7 @@ body {
 }
 
 .rotors div i:hover {
-  color: dimgrey;
+  color: lightgrey;
 }
 
 .rotors .window {

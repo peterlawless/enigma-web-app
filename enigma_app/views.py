@@ -22,7 +22,6 @@ def encrypt(request):
     middle_rotor = rotor_selection[rotor_list[1]]
     fast_rotor = rotor_selection[rotor_list[2]]
     rotor_settings = request.GET.getlist('setting')
-    letter = request.GET['letter']
     if rotor_settings[2] in fast_rotor.turnover:
         fast_rotor_turnover = True
     else:
@@ -32,11 +31,12 @@ def encrypt(request):
     else:
         middle_rotor_turnover = False
     enigma = Enigma(slow_rotor, middle_rotor, fast_rotor, rotor_settings)
-    cipher_letter = enigma.encrypt(letter)
-    return JsonResponse({'cipher_letter': cipher_letter,
-                         'middle_rotor_turnover': middle_rotor_turnover,
-                         'fast_rotor_turnover': fast_rotor_turnover})
-
-
-def turnover(request):
-    pass
+    if 'letter' in request.GET.keys():
+        letter = request.GET['letter']
+        cipher_letter = enigma.encrypt(letter)
+    else:
+        cipher_letter = None
+    response = {'cipher_letter': cipher_letter,
+                'middle_rotor_turnover': middle_rotor_turnover,
+                'fast_rotor_turnover': fast_rotor_turnover}
+    return JsonResponse(response)
