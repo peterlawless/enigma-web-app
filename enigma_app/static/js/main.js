@@ -51,9 +51,39 @@ $(document).keydown(function(event) {
       timesCalled++;
     };
     if (timesCalled === 1) {
-      fast_index = (fast_index + 1) % 26;
+      var rotors = [];
+      var settings = [];
+      $('select').each(function(i, e) {
+        rotors.push(e.value);
+      });
+      settings.push($('.slow-letter').html());
+      settings.push($('.middle-letter').html());
+      settings.push($('.fast-letter').html());
+      if (rotors.length === 3 && settings.length === 3) {
+        $.ajax({type:"GET",
+                url: '/encrypt/',
+                data: {'rotor': rotors, 'setting': settings},
+                traditional: true}
+              ).done(function(response) {
+                if (response.fast_rotor_turnover && response.middle_rotor_turnover) {
+                  slow_index = (slow_index + 1) % 26;
+                  $('.slow-letter').html(alphabet[slow_index]);
+                  middle_index = (middle_index + 1) % 26;
+                  $('.middle-letter').html(alphabet[middle_index]);
+                  fast_index = (fast_index + 1) % 26;
+                  $('.fast-letter').html(alphabet[fast_index]);
+                } else if (response.fast_rotor_turnover) {
+                  middle_index = (middle_index + 1) % 26;
+                  $('.middle-letter').html(alphabet[middle_index]);
+                  fast_index = (fast_index + 1) % 26;
+                  $('.fast-letter').html(alphabet[fast_index]);
+                } else {
+                  fast_index = (fast_index + 1) % 26;
+                  $('.fast-letter').html(alphabet[fast_index]);
+                }
+              }); // end .done()
+      };
     };
-    $('.fast-letter').html(alphabet[fast_index]);
     var rotors = [];
     var settings = [];
     $('select').each(function(i, e) {
