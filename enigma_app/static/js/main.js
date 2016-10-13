@@ -11,6 +11,10 @@ $('.fast-letter').html(alphabet[fast_index]);
 $('.middle-letter').html(alphabet[middle_index]);
 $('.slow-letter').html(alphabet[slow_index]);
 
+var cipher_letter;
+var fast_rotor_turnover;
+var middle_rotor_turnover;
+var letter;
 
 
 $('.up').click(function () {
@@ -45,7 +49,7 @@ $('.down').click(function () {
 var timesCalled = 0;
 
 $(document).keydown(function(event) {
-  var letter = String.fromCharCode(event.keyCode);
+  letter = String.fromCharCode(event.keyCode);
   if (alphabet.includes(letter)) {
     if (timesCalled < 2) {
       timesCalled++;
@@ -82,26 +86,27 @@ $(document).keydown(function(event) {
                   $('.fast-letter').html(alphabet[fast_index]);
                 }
               }); // end .done()
-      };
-    };
-    var rotors = [];
-    var settings = [];
-    $('select').each(function(i, e) {
-      rotors.push(e.value);
-    });
-    settings.push($('.slow-letter').html());
-    settings.push($('.middle-letter').html());
-    settings.push($('.fast-letter').html());
-    if (rotors.length === 3 && settings.length === 3) {
-      $.ajax({type:"GET",
-              url: '/encrypt/',
-              data: {'rotor': rotors, 'setting': settings, 'letter': letter},
-              traditional: true}
-            ).done(function(response) {
-              $('#' + response.cipher_letter).addClass('glow');
-            }); // end .done()
-    };
-  }
+      }; // end if (rotors.length === 3 && settings.length === 3)
+      console.log('Got out of the rotation')
+      rotors = [];
+      settings = [];
+      $('select').each(function(i, e) {
+        rotors.push(e.value);
+      });
+      settings.push($('.slow-letter').html());
+      settings.push($('.middle-letter').html());
+      settings.push($('.fast-letter').html());
+      if (rotors.length === 3 && settings.length === 3) {
+        $.ajax({type:"GET",
+                url: '/encrypt/',
+                data: {'rotor': rotors, 'setting': settings, 'letter': letter},
+                traditional: true}
+              ).done(function(response) {
+                $('#' + response.cipher_letter).addClass('glow');
+              }); // end .done()
+      }; // end if (rotors.length === 3 && settings.length === 3)
+    }; // end if (timesCalled === 1)
+  }; // end if (alphabet.includes(letter))
 }).keyup(function() {
   $('.glow').removeClass('glow');
   timesCalled = 0;
