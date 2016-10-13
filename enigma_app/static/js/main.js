@@ -11,6 +11,27 @@ $('.fast-letter').html(alphabet[fast_index]);
 $('.middle-letter').html(alphabet[middle_index]);
 $('.slow-letter').html(alphabet[slow_index]);
 
+var cipher_letter;
+var fast_rotor_turnover;
+var middle_rotor_turnover;
+var letter;
+
+function getEnigmaBehavior() {
+  var rotors = [];
+  var settings = [];
+  $('select').each(function(i, e) {
+    rotors.push(e.value);
+  });
+  settings.push($('.slow-letter').html());
+  settings.push($('.middle-letter').html());
+  settings.push($('.fast-letter').html());
+  if (rotors.length === 3 && settings.length === 3) {
+    $.ajax({type:"GET",
+            url: '/encrypt/',
+            data: {'rotor': rotors, 'setting': settings, 'letter': letter},
+            traditional: true}
+          )
+};
 
 
 $('.up').click(function () {
@@ -45,32 +66,36 @@ $('.down').click(function () {
 var timesCalled = 0;
 
 $(document).keydown(function(event) {
-  var letter = String.fromCharCode(event.keyCode);
+  letter = String.fromCharCode(event.keyCode);
   if (alphabet.includes(letter)) {
+    getEnigmaBehavior().done(function(response) {
+      console.log(response);
+      cipher_letter = response.cipher_letter;
+      fast_rotor_turnover = response.fast_rotor_turnover;
+      middle_rotor_turnover  = response.middle_rotor_turnover;
+    });
     if (timesCalled < 2) {
       timesCalled++;
     };
-    if (timesCalled === 1) {
+    if (middle_rotor_turnover && fast_rotor_turnover && timesCalled === 1) {
+      slow_index = (slow_index + 1) % 26;
+      middle_index = (middle_index + 1) % 26;
       fast_index = (fast_index + 1) % 26;
+      $('.slow-letter').html(alphabet[slow_index]);
+      $('.middle-letter').html(alphabet[middle_index]);
+      $('.fast-letter').html(alphabet[fast_index]);
+    } else if (fast_rotor_turnover && timesCalled === 1) {
+      middle_index = (middle_index + 1) % 26;
+      fast_index = (fast_index + 1) % 26;
+      $('.middle-letter').html(alphabet[middle_index]);
+      $('.fast-letter').html(alphabet[fast_index]);
+    } else if (timesCalled === 1) {
+      fast_index = (fast_index + 1) % 26;
+      $('.fast-letter').html(alphabet[fast_index]);
     };
-    $('.fast-letter').html(alphabet[fast_index]);
-    var rotors = [];
-    var settings = [];
-    $('select').each(function(i, e) {
-      rotors.push(e.value);
+    getEnigmaBehavior().done(function(response) {
+      $('#' + cipher_letter).addClass('glow');
     });
-    settings.push($('.slow-letter').html());
-    settings.push($('.middle-letter').html());
-    settings.push($('.fast-letter').html());
-    if (rotors.length === 3 && settings.length === 3) {
-      $.ajax({type:"GET",
-              url: '/encrypt/',
-              data: {'rotor': rotors, 'setting': settings, 'letter': letter},
-              traditional: true}
-            ).done(function(response) {
-              $('#' + response.cipher_letter).addClass('glow');
-            }); // end .done()
-    };
   }
 }).keyup(function() {
   $('.glow').removeClass('glow');
