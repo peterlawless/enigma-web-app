@@ -11,7 +11,7 @@ body {
   padding: 0;
   font-family: sans-serif;
   font-size: 2em;
-  color: darkgrey;
+  color: #333;
   background-image: url('../img/noise.png');
 }
 
@@ -107,5 +107,5 @@ body {
 
 .glow {
   color: beige;
-  text-shadow: 0 0 10px cornsilk;
+  text-shadow: 0 0 15px cornsilk;
 }
