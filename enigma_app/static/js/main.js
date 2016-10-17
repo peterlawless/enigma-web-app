@@ -3,46 +3,41 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
                 'Y', 'Z'];
 
-var slow_index = 0;
-var middle_index = 0;
-var fast_index = 0;
-
-$('.fast-letter').html(alphabet[fast_index]);
-$('.middle-letter').html(alphabet[middle_index]);
-$('.slow-letter').html(alphabet[slow_index]);
+$('.fast-letter').html('A');
+$('.middle-letter').html('A');
+$('.slow-letter').html('A');
 
 var cipher_letter;
 var fast_rotor_turnover;
 var middle_rotor_turnover;
 var letter;
 
+function rotate(domElement, direction) {
+  if (direction === "forward") {
+    increment = 1;
+  } else if (direction === "backward") {
+    increment = -1;
+  }
+  domElement.html(alphabet[(alphabet.indexOf(domElement.html()) + 26 + increment) % 26]);
+}
 
 $('.up').click(function () {
   if ($(this).parent().parent().hasClass('slow-rotor')) {
-    slow_index = (slow_index + 1) % 26;
-    $('.slow-letter').html(alphabet[slow_index]);
+    rotate($('.slow-letter'), "forward");
   } else if ($(this).parent().parent().hasClass('middle-rotor')) {
-    middle_index = (middle_index + 1) % 26;
-    $('.middle-letter').html(alphabet[middle_index]);
+    rotate($('.middle-letter'), "forward");
   } else if ($(this).parent().parent().hasClass('fast-rotor')) {
-    fast_index = (fast_index + 1) % 26;
-    $('.fast-letter').html(alphabet[fast_index]);
+    rotate($('.fast-letter'), "forward");
   }
 });
 
 $('.down').click(function () {
   if ($(this).parent().parent().hasClass('slow-rotor')) {
-    if (slow_index === 0) {slow_index = slow_index + 26;}
-    slow_index = (slow_index - 1) % 26;
-    $('.slow-letter').html(alphabet[slow_index]);
+    rotate($('.slow-letter'), "backward");
   } else if ($(this).parent().parent().hasClass('middle-rotor')) {
-    if (middle_index === 0) {middle_index = middle_index + 26;}
-    middle_index = (middle_index - 1) % 26;
-    $('.middle-letter').html(alphabet[middle_index]);
+    rotate($('.middle-letter'), "backward");
   } else if ($(this).parent().parent().hasClass('fast-rotor')) {
-    if (fast_index === 0) {fast_index = fast_index + 26;}
-    fast_index = (fast_index - 1) % 26;
-    $('.fast-letter').html(alphabet[fast_index]);
+    rotate($('.fast-letter'), "backward");
   }
 });
 
@@ -70,20 +65,14 @@ $(document).keydown(function(event) {
                 traditional: true}
               ).done(function(response) {
                 if (response.fast_rotor_turnover && response.middle_rotor_turnover) {
-                  slow_index = (slow_index + 1) % 26;
-                  $('.slow-letter').html(alphabet[slow_index]);
-                  middle_index = (middle_index + 1) % 26;
-                  $('.middle-letter').html(alphabet[middle_index]);
-                  fast_index = (fast_index + 1) % 26;
-                  $('.fast-letter').html(alphabet[fast_index]);
+                  rotate($('.slow-letter'), "forward");
+                  rotate($('.middle-letter'), "forward");
+                  rotate($('.fast-letter'), "forward");
                 } else if (response.fast_rotor_turnover) {
-                  middle_index = (middle_index + 1) % 26;
-                  $('.middle-letter').html(alphabet[middle_index]);
-                  fast_index = (fast_index + 1) % 26;
-                  $('.fast-letter').html(alphabet[fast_index]);
+                  rotate($('.middle-letter'), "forward");
+                  rotate($('.fast-letter'), "forward");
                 } else {
-                  fast_index = (fast_index + 1) % 26;
-                  $('.fast-letter').html(alphabet[fast_index]);
+                  rotate($('.fast-letter'), "forward");
                 }
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
@@ -99,7 +88,7 @@ $(document).keydown(function(event) {
       if (rotors.length === 3 && settings.length === 3) {
         $.ajax({type:"GET",
                 url: '/encrypt/',
-                data: {'rotor': rotors, 'setting': settings, 'letter': letter},
+                data: {'rotor': rotors, 'setting': settings, 'letter':letter},
                 traditional: true}
               ).done(function(response) {
                 $('#' + response.cipher_letter).addClass('glow');
