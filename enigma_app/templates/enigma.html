@@ -10,6 +10,7 @@
   </head>
   <body>
     <div class="rotors">
+      <form id="rotors" method="get">
       <div class="slow-rotor">
         <div class="window">
           <span class="slow-letter"></span>
@@ -18,8 +19,8 @@
           <i class="fa fa-angle-up up" aria-hidden="true"></i>
           <i class="fa fa-angle-down down" aria-hidden="true"></i>
         </div>
-        <select>
-          <option>--</option>
+        <select required>
+          <option disabled selected value="">Select Rotor</option>
           <option value="I">I</option>
           <option value="II">II</option>
           <option value="III">III</option>
@@ -38,8 +39,8 @@
           <i class="fa fa-angle-up up" aria-hidden="true"></i>
           <i class="fa fa-angle-down down" aria-hidden="true"></i>
         </div>
-        <select>
-          <option>--</option>
+        <select required>
+          <option disabled selected value="">Select Rotor</option>
           <option value="I">I</option>
           <option value="II">II</option>
           <option value="III">III</option>
@@ -58,8 +59,8 @@
           <i class="fa fa-angle-up up" aria-hidden="true"></i>
           <i class="fa fa-angle-down down" aria-hidden="true"></i>
         </div>
-        <select>
-          <option>--</option>
+        <select required>
+          <option disabled selected value="">Select Rotor</option>
           <option value="I">I</option>
           <option value="II">II</option>
           <option value="III">III</option>
@@ -70,6 +71,8 @@
           <option value="VIII">VIII</option>
         </select>
       </div>
+      <!-- <input type="submit"> -->
+      </form>
     </div>
     <div id="lampboard">
       <div class="row">

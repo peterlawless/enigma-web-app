@@ -21,6 +21,10 @@ function rotate(domElement, direction) {
   domElement.html(alphabet[(alphabet.indexOf(domElement.html()) + 26 + increment) % 26]);
 }
 
+function validate_selection() {
+
+}
+
 $('.up').click(function () {
   if ($(this).parent().parent().hasClass('slow-rotor')) {
     rotate($('.slow-letter'), "forward");
@@ -76,7 +80,6 @@ $(document).keydown(function(event) {
                 }
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
-      console.log('Got out of the rotation')
       rotors = [];
       settings = [];
       $('select').each(function(i, e) {
