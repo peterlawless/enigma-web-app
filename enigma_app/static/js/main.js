@@ -54,7 +54,6 @@ $(document).keydown(function(event) {
       timesCalled++;
     };
     if (timesCalled === 1) {
-      $('#input').append(letter);
       var rotors = [];
       var settings = [];
       $('select').each(function(i, e) {
@@ -84,7 +83,11 @@ $(document).keydown(function(event) {
       rotors = [];
       settings = [];
       $('select').each(function(i, e) {
+        if (e.value != '') {
         rotors.push(e.value);
+      } else {
+        alert("You must select rotors!");
+      }
       });
       settings.push($('.slow-letter').html());
       settings.push($('.middle-letter').html());
@@ -96,6 +99,7 @@ $(document).keydown(function(event) {
                 traditional: true}
               ).done(function(response) {
                 $('#' + response.cipher_letter).addClass('glow');
+                $('#input').append(letter);
                 $('#output').append(response.cipher_letter);
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
