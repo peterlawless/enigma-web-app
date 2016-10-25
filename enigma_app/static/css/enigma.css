@@ -1,4 +1,5 @@
 @import 'https://fonts.googleapis.com/css?family=Inconsolata';
+@import 'https://fonts.googleapis.com/css?family=Special+Elite';
 
 html {
   height: 100%;
@@ -63,7 +64,6 @@ body {
   background: transparent;
 }
 
-
 .window span {
   display: inline-block;
 }
@@ -71,6 +71,30 @@ body {
 .rotors div select {
   display: block;
 }
+
+#notepad {
+  background: beige;
+  background-image: url('../img/Old_paper7.jpg');
+  border-radius: 2px;
+  display: inline-block;
+  width: 45%;
+  margin-right: 5%;
+  min-height: 100%;
+  border: none;
+  font-family: 'Special Elite';
+  font-size: 20px;
+  color: maroon;
+  float: right;
+}
+
+#notepad div {
+  background: transparent;
+  border: 2px solid maroon;
+  border-radius: 2px;
+  display: block;
+  color: black;
+}
+
 
 #lampboard {
   padding: 5% 10%;
