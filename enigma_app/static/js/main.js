@@ -8,8 +8,8 @@ $('.middle-letter').html('A');
 $('.slow-letter').html('A');
 
 var cipher_letter;
-var fast_rotor_turnover;
-var middle_rotor_turnover;
+var fast_rotor_turnover = [];
+var middle_rotor_turnover = [];
 var letter;
 
 function rotate(domElement, direction) {
@@ -49,10 +49,10 @@ var timesCalled = 0;
 
 $(document).keydown(function(event) {
   letter = String.fromCharCode(event.keyCode);
+  if (timesCalled < 2) {
+    timesCalled++;
+  };
   if (alphabet.includes(letter)) {
-    if (timesCalled < 2) {
-      timesCalled++;
-    };
     if (timesCalled === 1) {
       var rotors = [];
       var settings = [];
@@ -78,6 +78,8 @@ $(document).keydown(function(event) {
                 } else {
                   rotate($('.fast-letter'), "forward");
                 }
+                fast_rotor_turnover.unshift(response.fast_rotor_turnover);
+                middle_rotor_turnover.unshift(response.middle_rotor_turnover);
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
       rotors = [];
@@ -86,7 +88,7 @@ $(document).keydown(function(event) {
         if (e.value != '') {
         rotors.push(e.value);
       } else {
-        alert("You must select rotors!");
+        console.log("You must select rotors!");
       }
       });
       settings.push($('.slow-letter').html());
@@ -104,6 +106,21 @@ $(document).keydown(function(event) {
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
     }; // end if (timesCalled === 1)
+  } else if (event.keyCode === 8 && timesCalled === 1) {
+    frt  = fast_rotor_turnover.shift();
+    mrt = middle_rotor_turnover.shift();
+    if (frt && mrt) {
+      rotate($('.slow-letter'), "backward");
+      rotate($('.middle-letter'), "backward");
+      rotate($('.fast-letter'), "backward");
+    } else if (frt) {
+      rotate($('.middle-letter'), "backward");
+      rotate($('.fast-letter'), "backward");
+    } else {
+      rotate($('.fast-letter'), "backward");
+    }
+    $('#input').html($('#input').html().substring(0,fast_rotor_turnover.length - 1))
+    $('#output').html($('#output').html().substring(0,fast_rotor_turnover.length - 1))
   }; // end if (alphabet.includes(letter))
 }).keyup(function() {
   $('.glow').removeClass('glow');
