@@ -93,6 +93,7 @@ body {
   border: 2px solid maroon;
   border-radius: 2px;
   display: block;
+  height: 20px;
   color: black;
   margin-bottom: 5px;
 }
