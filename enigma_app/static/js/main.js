@@ -10,6 +10,8 @@ $('.slow-letter').html('A');
 var cipher_letter;
 var fast_rotor_turnover = [];
 var middle_rotor_turnover = [];
+var plaintext = '';
+var cipher_text = '';
 var letter;
 
 function rotate(domElement, direction) {
@@ -101,8 +103,10 @@ $(document).keydown(function(event) {
                 traditional: true}
               ).done(function(response) {
                 $('#' + response.cipher_letter).addClass('glow');
-                $('#input').append(letter);
-                $('#output').append(response.cipher_letter);
+                plaintext += letter;
+                cipher_text += response.cipher_letter;
+                $('#input').html(plaintext)
+                $('#output').html(cipher_text)
               }); // end .done()
       }; // end if (rotors.length === 3 && settings.length === 3)
     }; // end if (timesCalled === 1)
@@ -119,9 +123,11 @@ $(document).keydown(function(event) {
     } else {
       rotate($('.fast-letter'), "backward");
     }
-    $('#input').html($('#input').html().substring(0,fast_rotor_turnover.length - 1))
-    $('#output').html($('#output').html().substring(0,fast_rotor_turnover.length - 1))
-  }; // end if (alphabet.includes(letter))
+    plaintext = plaintext.slice(0, plaintext.length - 1)
+    cipher_text = cipher_text.slice(0, cipher_text.length - 1)
+    $('#input').html(plaintext)
+    $('#output').html(cipher_text)
+  }; // end if (alphabet.includes(letter)) else if backspace
 }).keyup(function() {
   $('.glow').removeClass('glow');
   timesCalled = 0;
